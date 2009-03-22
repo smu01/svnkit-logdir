@@ -1,5 +1,5 @@
 <projectDescription>
-  <name>svnkit.logdir</name>
+  <name>svnkit-logdir</name>
   <comment>A simple SVN protocol implementation, focused on log messages.</comment>
   <projects/>
   <buildSpec>

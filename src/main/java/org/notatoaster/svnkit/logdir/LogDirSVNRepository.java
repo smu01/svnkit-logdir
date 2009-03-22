@@ -12,20 +12,27 @@ import java.util.Map;
 import org.apache.log4j.Logger;
 import org.tmatesoft.svn.core.ISVNDirEntryHandler;
 import org.tmatesoft.svn.core.ISVNLogEntryHandler;
+import org.tmatesoft.svn.core.SVNDepth;
 import org.tmatesoft.svn.core.SVNDirEntry;
 import org.tmatesoft.svn.core.SVNErrorMessage;
 import org.tmatesoft.svn.core.SVNException;
 import org.tmatesoft.svn.core.SVNLock;
 import org.tmatesoft.svn.core.SVNLogEntry;
+import org.tmatesoft.svn.core.SVNMergeInfoInheritance;
 import org.tmatesoft.svn.core.SVNNodeKind;
+import org.tmatesoft.svn.core.SVNProperties;
+import org.tmatesoft.svn.core.SVNPropertyValue;
 import org.tmatesoft.svn.core.SVNURL;
 import org.tmatesoft.svn.core.io.ISVNEditor;
 import org.tmatesoft.svn.core.io.ISVNFileRevisionHandler;
 import org.tmatesoft.svn.core.io.ISVNLocationEntryHandler;
+import org.tmatesoft.svn.core.io.ISVNLocationSegmentHandler;
 import org.tmatesoft.svn.core.io.ISVNLockHandler;
+import org.tmatesoft.svn.core.io.ISVNReplayHandler;
 import org.tmatesoft.svn.core.io.ISVNReporterBaton;
 import org.tmatesoft.svn.core.io.ISVNSession;
 import org.tmatesoft.svn.core.io.ISVNWorkspaceMediator;
+import org.tmatesoft.svn.core.io.SVNCapability;
 import org.tmatesoft.svn.core.io.SVNRepository;
 
 public class LogDirSVNRepository extends SVNRepository {
@@ -57,7 +64,7 @@ public class LogDirSVNRepository extends SVNRepository {
 		}
 	}
 
-	public SVNLogEntry getLogEntry(long revision) {
+	private SVNLogEntry getLogEntry(long revision) {
 		String filename = buildFileName(revision);
 		File file = new File(directory, filename);
 		try {
@@ -74,6 +81,7 @@ public class LogDirSVNRepository extends SVNRepository {
 		return FILENAME_PREFIX + revision + FILENAME_SUFFIX;
 	}
 
+	@Override
 	public long getLatestRevision() {
 		long rev = myRev + 1;
 		if (logFileExists(rev)) { // new files available
@@ -91,6 +99,7 @@ public class LogDirSVNRepository extends SVNRepository {
 		return new File(directory, buildFileName(rev)).canRead();
 	}
 
+	@Override
 	public void testConnection() throws SVNException {
 		if (directory == null)
 			throw new SVNException(SVNErrorMessage.UNKNOWN_ERROR_MESSAGE);
@@ -100,6 +109,7 @@ public class LogDirSVNRepository extends SVNRepository {
 			throw new SVNException(SVNErrorMessage.UNKNOWN_ERROR_MESSAGE);
 	}
 
+	@Override
 	public long log(String[] targetPaths, long startRevision, long endRevision, boolean changedPaths,
 			boolean strictNode, long limit, ISVNLogEntryHandler handler) throws SVNException {
 		long result = 0;
@@ -114,107 +124,188 @@ public class LogDirSVNRepository extends SVNRepository {
 	}
 
 	// The following methods are not implemented and throw an UnsupportedOperationException!!!!
-
-	public long getDatedRevision(Date date) throws SVNException {
-		throw new UnsupportedOperationException();
-	}
-
-	public Map getRevisionProperties(long revision, Map arg1) throws SVNException {
-		throw new UnsupportedOperationException();
-	}
-
-	public void setRevisionPropertyValue(long arg0, String arg1, String arg2) throws SVNException {
-		throw new UnsupportedOperationException();
-	}
-
-	public String getRevisionPropertyValue(long revision, String propertyName) throws SVNException {
-		throw new UnsupportedOperationException();
-	}
-
-	public SVNNodeKind checkPath(String path, long arg1) throws SVNException {
-		throw new UnsupportedOperationException();
-	}
-
-	public long getFile(String arg0, long arg1, Map arg2, OutputStream arg3) throws SVNException {
-		throw new UnsupportedOperationException();
-	}
-
-	public long getDir(String arg0, long arg1, Map arg2, ISVNDirEntryHandler arg3) throws SVNException {
-		throw new UnsupportedOperationException();
-	}
-
-	public int getFileRevisions(String arg0, long arg1, long arg2, ISVNFileRevisionHandler arg3) throws SVNException {
-		throw new UnsupportedOperationException();
-	}
-
-	public int getLocations(String arg0, long arg1, long[] arg2, ISVNLocationEntryHandler arg3) throws SVNException {
-		throw new UnsupportedOperationException();
-	}
-
-	public SVNDirEntry getDir(String arg0, long arg1, boolean arg2, Collection arg3) throws SVNException {
-		throw new UnsupportedOperationException();
-	}
-
-	public void diff(SVNURL arg0, long arg1, long arg2, String arg3, boolean arg4, boolean arg5,
-			ISVNReporterBaton arg6, ISVNEditor arg7) throws SVNException {
-		throw new UnsupportedOperationException();
-	}
-
-	public void diff(SVNURL arg0, long arg1, String arg2, boolean arg3, boolean arg4, ISVNReporterBaton arg5,
-			ISVNEditor arg6) throws SVNException {
-		throw new UnsupportedOperationException();
-	}
-
-	public void update(long arg0, String arg1, boolean arg2, ISVNReporterBaton arg3, ISVNEditor arg4)
+	
+	@Override
+	public SVNNodeKind checkPath(String path, long revision)
 			throws SVNException {
 		throw new UnsupportedOperationException();
 	}
 
-	public void status(long arg0, String arg1, boolean arg2, ISVNReporterBaton arg3, ISVNEditor arg4)
-			throws SVNException {
-		throw new UnsupportedOperationException();
-	}
-
-	public void update(SVNURL arg0, long arg1, String arg2, boolean arg3, ISVNReporterBaton arg4, ISVNEditor arg5)
-			throws SVNException {
-		throw new UnsupportedOperationException();
-	}
-
-	public SVNDirEntry info(String arg0, long arg1) throws SVNException {
-		throw new UnsupportedOperationException();
-	}
-
-	public ISVNEditor getCommitEditor(String arg0, Map arg1, boolean arg2, ISVNWorkspaceMediator arg3)
-			throws SVNException {
-		throw new UnsupportedOperationException();
-	}
-
-	public SVNLock getLock(String arg0) throws SVNException {
-		throw new UnsupportedOperationException();
-	}
-
-	public SVNLock[] getLocks(String arg0) throws SVNException {
-		throw new UnsupportedOperationException();
-	}
-
-	public void lock(Map arg0, String arg1, boolean arg2, ISVNLockHandler arg3) throws SVNException {
-		throw new UnsupportedOperationException();
-	}
-
-	public void unlock(Map arg0, boolean arg1, ISVNLockHandler arg2) throws SVNException {
-		throw new UnsupportedOperationException();
-	}
-
+	@Override
 	public void closeSession() {
 		throw new UnsupportedOperationException();
 	}
 
-	public void diff(SVNURL arg0, long arg1, long arg2, String arg3, boolean arg4, boolean arg5, boolean arg6,
-			ISVNReporterBaton arg7, ISVNEditor arg8) throws SVNException {
-		throw new UnsupportedOperationException();		
+	@Override
+	public void diff(SVNURL url, long targetRevision, long revision,
+			String target, boolean ignoreAncestry, SVNDepth depth,
+			boolean getContents, ISVNReporterBaton reporter, ISVNEditor editor)
+			throws SVNException {
+		throw new UnsupportedOperationException();
 	}
 
-	public void replay(long arg0, long arg1, boolean arg2, ISVNEditor arg3) throws SVNException {
+	@Override
+	public ISVNEditor getCommitEditor(String logMessage, Map locks,
+			boolean keepLocks, ISVNWorkspaceMediator mediator)
+			throws SVNException {
+		throw new UnsupportedOperationException();
+	}
+
+	@Override
+	protected ISVNEditor getCommitEditorInternal(Map locks, boolean keepLocks,
+			SVNProperties revProps, ISVNWorkspaceMediator mediator)
+			throws SVNException {
+		throw new UnsupportedOperationException();
+	}
+
+	@Override
+	public long getDatedRevision(Date date) throws SVNException {
+		throw new UnsupportedOperationException();
+	}
+
+	@Override
+	public long getDir(String path, long revision, SVNProperties properties,
+			ISVNDirEntryHandler handler) throws SVNException {
+		throw new UnsupportedOperationException();
+	}
+
+	@Override
+	public SVNDirEntry getDir(String path, long revision,
+			boolean includeCommitMessages, Collection entries)
+			throws SVNException {
+		throw new UnsupportedOperationException();
+	}
+
+	@Override
+	public long getDir(String path, long revision, SVNProperties properties,
+			int entryFields, ISVNDirEntryHandler handler) throws SVNException {
+		throw new UnsupportedOperationException();
+	}
+
+	@Override
+	public long getFile(String path, long revision, SVNProperties properties,
+			OutputStream contents) throws SVNException {
+		throw new UnsupportedOperationException();
+	}
+
+	@Override
+	protected int getFileRevisionsImpl(String path, long startRevision,
+			long endRevision, boolean includeMergedRevisions,
+			ISVNFileRevisionHandler handler) throws SVNException {
+		throw new UnsupportedOperationException();
+	}
+
+	@Override
+	protected long getLocationSegmentsImpl(String path, long pegRevision,
+			long startRevision, long endRevision,
+			ISVNLocationSegmentHandler handler) throws SVNException {
+		throw new UnsupportedOperationException();
+	}
+
+	@Override
+	protected int getLocationsImpl(String path, long pegRevision,
+			long[] revisions, ISVNLocationEntryHandler handler)
+			throws SVNException {
+		throw new UnsupportedOperationException();
+	}
+
+	@Override
+	public SVNLock getLock(String path) throws SVNException {
+		throw new UnsupportedOperationException();
+	}
+
+	@Override
+	public SVNLock[] getLocks(String path) throws SVNException {
+		throw new UnsupportedOperationException();
+	}
+
+	@Override
+	protected Map getMergeInfoImpl(String[] paths, long revision,
+			SVNMergeInfoInheritance inherit, boolean includeDescendants)
+			throws SVNException {
+		throw new UnsupportedOperationException();
+	}
+
+	@Override
+	public SVNProperties getRevisionProperties(long revision,
+			SVNProperties properties) throws SVNException {
+		throw new UnsupportedOperationException();
+	}
+
+	@Override
+	public SVNPropertyValue getRevisionPropertyValue(long revision,
+			String propertyName) throws SVNException {
+		throw new UnsupportedOperationException();
+	}
+
+	@Override
+	public boolean hasCapability(SVNCapability capability) throws SVNException {
+		throw new UnsupportedOperationException();
+	}
+
+	@Override
+	public SVNDirEntry info(String path, long revision) throws SVNException {
+		throw new UnsupportedOperationException();
+	}
+
+	@Override
+	public void lock(Map pathsToRevisions, String comment, boolean force,
+			ISVNLockHandler handler) throws SVNException {
+		throw new UnsupportedOperationException();
+		
+	}
+
+	@Override
+	protected long logImpl(String[] targetPaths, long startRevision,
+			long endRevision, boolean changedPath, boolean strictNode,
+			long limit, boolean includeMergedRevisions,
+			String[] revisionProperties, ISVNLogEntryHandler handler)
+			throws SVNException {
+		throw new UnsupportedOperationException();
+	}
+
+	@Override
+	public void replay(long lowRevision, long revision, boolean sendDeltas,
+			ISVNEditor editor) throws SVNException {
+		throw new UnsupportedOperationException();
+	}
+
+	@Override
+	protected void replayRangeImpl(long startRevision, long endRevision,
+			long lowRevision, boolean sendDeltas, ISVNReplayHandler handler)
+			throws SVNException {
+		throw new UnsupportedOperationException();
+	}
+
+	@Override
+	public void setRevisionPropertyValue(long revision, String propertyName,
+			SVNPropertyValue propertyValue) throws SVNException {
+		throw new UnsupportedOperationException();
+	}
+
+	@Override
+	public void status(long revision, String target, SVNDepth depth,
+			ISVNReporterBaton reporter, ISVNEditor editor) throws SVNException {
+		throw new UnsupportedOperationException();
+	}
+
+	@Override
+	public void unlock(Map pathToTokens, boolean force, ISVNLockHandler handler)
+			throws SVNException {
+		throw new UnsupportedOperationException();
+	}
+
+	@Override
+	public void update(SVNURL url, long revision, String target,
+			SVNDepth depth, ISVNReporterBaton reporter, ISVNEditor editor)
+			throws SVNException {
+		throw new UnsupportedOperationException();
+	}
+
+	@Override
+	public void update(long revision, String target, SVNDepth depth,
+			boolean sendCopyFromArgs, ISVNReporterBaton reporter,
+			ISVNEditor editor) throws SVNException {
 		throw new UnsupportedOperationException();
 	}
 
