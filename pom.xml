@@ -4,7 +4,7 @@
   <modelVersion>4.0.0</modelVersion>
   <groupId>org.notatoaster</groupId>
   <artifactId>svnkit-logdir</artifactId>
-  <version>0.1.1</version>
+  <version>0.1.2</version>
   
   <name>SVNKit LogDir protocol</name>
   <packaging>jar</packaging>
@@ -15,8 +15,8 @@
   <developers>
         <developer>
             <name>Stephan Müller</name>
-            <id>chaq</id>
-            <email>stephan.mueller@notatoaster.org</email>
+            <id>smu01</id>
+            <email>stephan.mueller@businessacts.de</email>
             <roles>
                 <role>Developer</role>
             </roles>
