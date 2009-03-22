@@ -2,7 +2,7 @@
   xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
   
   <modelVersion>4.0.0</modelVersion>
-  <groupId>org.notatoaster</groupId>
+  <groupId>de.businessacts</groupId>
   <artifactId>svnkit-logdir</artifactId>
   <version>0.1.2</version>
   
@@ -10,7 +10,7 @@
   <packaging>jar</packaging>
  
   <description>A simple SVN protocol implementation, focused on log messages.</description>
-  <url>http://www.notatoaster.org</url> 
+  <url>http://www.businessacts.de</url> 
   
   <developers>
         <developer>

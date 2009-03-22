@@ -1,4 +1,4 @@
-package org.notatoaster.svnkit.logdir;
+package de.businessacts.svnkit.logdir;
 
 import java.io.File;
 import java.io.IOException;

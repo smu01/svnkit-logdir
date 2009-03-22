@@ -1,4 +1,4 @@
-package org.notatoaster.svnkit.logdir;
+package de.businessacts.svnkit.logdir;
 
 import org.tmatesoft.svn.core.SVNURL;
 import org.tmatesoft.svn.core.io.ISVNSession;
