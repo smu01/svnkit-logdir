@@ -1,0 +1,24 @@
+<classpath>
+  <classpathentry kind="src" path="src/main/java"/>
+  <classpathentry kind="src" path="src/test/java" output="target/test-classes"/>
+  <classpathentry kind="output" path="target/classes"/>
+  <classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER"/>
+  <classpathentry kind="var" path="M2_REPO/dom4j/dom4j/1.4/dom4j-1.4.jar" sourcepath="M2_REPO/dom4j/dom4j/1.4/dom4j-1.4-sources.jar"/>
+  <classpathentry kind="var" path="M2_REPO/isorelax/isorelax/20020414/isorelax-20020414.jar" sourcepath="M2_REPO/isorelax/isorelax/20020414/isorelax-20020414-sources.jar"/>
+  <classpathentry kind="var" path="M2_REPO/jaxen/jaxen/1.0-FCS/jaxen-1.0-FCS.jar" sourcepath="M2_REPO/jaxen/jaxen/1.0-FCS/jaxen-1.0-FCS-sources.jar">
+    <attributes>
+      <attribute value="jar:file:/C:/Dokumente%20und%20Einstellungen/Stephan/.m2/repository/jaxen/jaxen/1.0-FCS/jaxen-1.0-FCS-javadoc.jar!/" name="javadoc_location"/>
+    </attributes>
+  </classpathentry>
+  <classpathentry kind="var" path="M2_REPO/junit/junit/3.8.1/junit-3.8.1.jar" sourcepath="M2_REPO/junit/junit/3.8.1/junit-3.8.1-sources.jar"/>
+  <classpathentry kind="var" path="M2_REPO/log4j/log4j/1.2.7/log4j-1.2.7.jar"/>
+  <classpathentry kind="var" path="M2_REPO/msv/msv/20020414/msv-20020414.jar" sourcepath="M2_REPO/msv/msv/20020414/msv-20020414-sources.jar"/>
+  <classpathentry kind="var" path="M2_REPO/relaxngDatatype/relaxngDatatype/20020414/relaxngDatatype-20020414.jar" sourcepath="M2_REPO/relaxngDatatype/relaxngDatatype/20020414/relaxngDatatype-20020414-sources.jar"/>
+  <classpathentry kind="var" path="M2_REPO/saxpath/saxpath/1.0-FCS/saxpath-1.0-FCS.jar" sourcepath="M2_REPO/saxpath/saxpath/1.0-FCS/saxpath-1.0-FCS-sources.jar">
+    <attributes>
+      <attribute value="jar:file:/C:/Dokumente%20und%20Einstellungen/Stephan/.m2/repository/saxpath/saxpath/1.0-FCS/saxpath-1.0-FCS-javadoc.jar!/" name="javadoc_location"/>
+    </attributes>
+  </classpathentry>
+  <classpathentry kind="var" path="M2_REPO/com/svnkit/svnkit/1.1.6/svnkit-1.1.6.jar"/>
+  <classpathentry kind="var" path="M2_REPO/xml-apis/xml-apis/1.0.b2/xml-apis-1.0.b2.jar" sourcepath="M2_REPO/xml-apis/xml-apis/1.0.b2/xml-apis-1.0.b2-sources.jar"/>
+</classpath>

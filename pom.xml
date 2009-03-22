@@ -1,0 +1,54 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+  xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+  
+  <modelVersion>4.0.0</modelVersion>
+  <groupId>org.notatoaster</groupId>
+  <artifactId>svnkit-logdir</artifactId>
+  <version>0.1.1</version>
+  
+  <name>SVNKit LogDir protocol</name>
+  <packaging>jar</packaging>
+ 
+  <description>A simple SVN protocol implementation, focused on log messages.</description>
+  <url>http://www.notatoaster.org</url> 
+  
+  <developers>
+        <developer>
+            <name>Stephan Müller</name>
+            <id>chaq</id>
+            <email>stephan.mueller@notatoaster.org</email>
+            <roles>
+                <role>Developer</role>
+            </roles>
+        </developer>
+    </developers> 
+  
+  <dependencies>
+    <!--
+    <dependency>
+      <groupId>junit</groupId>
+      <artifactId>junit</artifactId>
+      <version>3.8.1</version>
+      <scope>test</scope>
+    </dependency>
+    -->
+    <dependency>
+      <groupId>org.tmatesoft.svnkit</groupId>
+      <artifactId>svnkit</artifactId>
+      <version>1.2.1.5297</version>
+      <scope>compile</scope>
+    </dependency>
+	<dependency>
+      <groupId>dom4j</groupId>
+      <artifactId>dom4j</artifactId>
+      <version>1.4</version>
+      <scope>compile</scope>
+    </dependency>
+	<dependency>
+      <groupId>log4j</groupId>
+      <artifactId>log4j</artifactId>
+      <version>1.2.7</version>
+      <scope>compile</scope>
+    </dependency>
+  </dependencies>
+</project>
