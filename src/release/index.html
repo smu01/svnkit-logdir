@@ -21,7 +21,7 @@ new protocol implementation)</li>
 </ul>
 
 <p>
-Whenever I mention <i>the plugin</i> in this document, I always mean the original Atlassian JIRA Subversion Plugin.
+<sub>(Whenever I mention <i>the plugin</i> in this document, I always mean the original Atlassian JIRA Subversion Plugin.)</sub>
 </p>
 
 <h3>Build Instruction</h3>
@@ -33,12 +33,12 @@ In order to use svnkit-logdir you have to patch and recompile the plugin.
 <ol>
 <li>
 Get <a href="svnkit-logdir-0.1.1.jar">svnkit-logdir-0.1.1.jar</a> and install it into your local Maven repository:
-<pre>mvn install:install-file -DgroupId=org.notatoaster -DartifactId=svnkit-logdir -Dversion=0.1.1 -Dpackaging=jar -Dfile=/path/to/svnkit-logdir-0.1.1.jar
+<pre>mvn install:install-file -DgroupId=de.businessacts -DartifactId=svnkit-logdir -Dversion=0.1.1 -Dpackaging=jar -Dfile=/path/to/svnkit-logdir-0.1.1.jar
 </pre>
-(Of course you can also compile svnkit-logdir from <a href="svnkit-logdir-0.1.1-src.zip">source</a>)
+Of course you can also compile svnkit-logdir from source (<a href="svnkit-logdir-0.1.1-src.zip">zip</a>, <a href="svnkit-logdir-0.1.1-src.tgz">tgz</a> or <a href="git://github.com/smu01/svnkit-logdir.git">git</a>).
 </li> 
 <li>Get plugin source code (see <a href="http://confluence.atlassian.com/display/JIRAEXT/JIRA+Subversion+plugin">Atlassian JIRA Subversion Plugin page</a>)</li>
-<li>Patch plugin source code with <a href="http://www.notatoaster.org/svnkit-logdir/foo.patch">foo.patch</a>, using your favorite patch utility (e.g. <a href="http://tortoisesvn.tigris.org/">TortoiseSVN</a>)</li>
+<li>Patch plugin source code with <a href="foo.patch">foo.patch</a>, using your favorite patch utility (e.g. <a href="http://tortoisesvn.tigris.org/">TortoiseSVN</a> on Windows)</li>
 <li>
 Compile and package the plugin: <pre>mvn package</pre>
 </li> 
@@ -104,8 +104,9 @@ done
 
 <h3>More</h3>
 
-<p>
-Atlassian JIRA Subversion Plugin page: <a href="http://confluence.atlassian.com/display/JIRAEXT/JIRA+Subversion+plugin">http://confluence.atlassian.com/display/JIRAEXT/JIRA+Subversion+plugin</a>
-</p>
+<ul>
+<li>GIT repository: <a href="http://github.com/smu01/svnkit-logdir/">http://github.com/smu01/svnkit-logdir/</a></li>
+<li>Atlassian JIRA Subversion Plugin page: <a href="http://confluence.atlassian.com/display/JIRAEXT/JIRA+Subversion+plugin">http://confluence.atlassian.com/display/JIRAEXT/JIRA+Subversion+plugin</a></li>
+</ul>
 </body>
 </html>
