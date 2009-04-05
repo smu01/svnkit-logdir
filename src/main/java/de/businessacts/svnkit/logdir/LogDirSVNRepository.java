@@ -5,7 +5,6 @@ import java.io.File;
 import java.io.FileReader;
 import java.io.IOException;
 import java.io.OutputStream;
-import java.text.MessageFormat;
 import java.util.Collection;
 import java.util.Date;
 import java.util.Iterator;
@@ -13,7 +12,6 @@ import java.util.Map;
 
 import org.apache.commons.io.FileUtils;
 import org.apache.commons.io.filefilter.WildcardFilter;
-import org.apache.commons.lang.NullArgumentException;
 import org.apache.log4j.Logger;
 import org.tmatesoft.svn.core.ISVNDirEntryHandler;
 import org.tmatesoft.svn.core.ISVNLogEntryHandler;
@@ -63,19 +61,19 @@ public class LogDirSVNRepository extends SVNRepository {
 				this.myRepositoryUUID = br.readLine();
 				br.close();
 			} catch (IOException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
+				log.error("cannot read uuid file", e);
 			}
+		} else {
+			log.error("cannot read uuid file");
 		}
 	}
 
 	private SVNLogEntry getLogEntry(long revision) {
 		File file = getLogEntryFile(revision);
 		try {
-			// log.warn("getting rev " + revision + " with filename " + file.getPath());
 			return new LogFile(file).getLogEntry(revision);
 		} catch (Exception e) {
-			e.printStackTrace(); // TODO: error handling
+			log.warn("failed to read log entry file for revision " + revision, e);
 			return null;
 		}
 	}
@@ -87,22 +85,11 @@ public class LogDirSVNRepository extends SVNRepository {
 	}
 
 	private String buildFileName(long revision) {
-		// return MessageFormat.format(FILENAME_FORMAT, new Object[] { new Long(revision) });
 		return FILENAME_PREFIX + revision + FILENAME_SUFFIX;
 	}
 
 	@Override
 	public long getLatestRevision() {
-//		long rev = myRev + 1;
-//		if (logFileExists(rev)) { // new files available
-//			// will perform badly with large (i.e., many commits) repositories:
-//			do {
-//				rev++;
-//			} while (logFileExists(rev));
-//			myRev = rev - 1;
-//		}
-//		log.info("latest revision is: " + myRev);
-//		return myRev;
 		Collection files = FileUtils.listFiles(directory, new WildcardFilter(FILENAME_PREFIX + "*" + FILENAME_SUFFIX), null);
 		Iterator iter = files.iterator();
 		while(iter.hasNext()) {
@@ -117,10 +104,6 @@ public class LogDirSVNRepository extends SVNRepository {
 		}
 		return myRev;
 	}
-
-	private boolean logFileExists(long rev) {
-		return getLogEntryFile(rev).canRead();
-	}
 	
 	private long getRevisionFromFilename(String filename) throws Exception {
 		if(filename==null) throw new Exception("filename must not be null"); // TODO: better exception type
@@ -129,8 +112,8 @@ public class LogDirSVNRepository extends SVNRepository {
 			throw new Exception("filename does not match expected format");
 		}
 		
-		String numPart = filename.substring(FILENAME_PREFIX.length(), filename.length()-FILENAME_SUFFIX.length());
-		return Long.parseLong(numPart);
+		String revisionPart = filename.substring(FILENAME_PREFIX.length(), filename.length()-FILENAME_SUFFIX.length());
+		return Long.parseLong(revisionPart);
 	}
 
 	@Override
