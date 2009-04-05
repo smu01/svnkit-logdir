@@ -5,10 +5,15 @@ import java.io.File;
 import java.io.FileReader;
 import java.io.IOException;
 import java.io.OutputStream;
+import java.text.MessageFormat;
 import java.util.Collection;
 import java.util.Date;
+import java.util.Iterator;
 import java.util.Map;
 
+import org.apache.commons.io.FileUtils;
+import org.apache.commons.io.filefilter.WildcardFilter;
+import org.apache.commons.lang.NullArgumentException;
 import org.apache.log4j.Logger;
 import org.tmatesoft.svn.core.ISVNDirEntryHandler;
 import org.tmatesoft.svn.core.ISVNLogEntryHandler;
@@ -42,7 +47,7 @@ public class LogDirSVNRepository extends SVNRepository {
 	private File directory = null;
 
 	private static final String FILENAME_PREFIX = "commit.r";
-
+	
 	private static final String FILENAME_SUFFIX = ".xml";
 
 	private long myRev = 0;
@@ -65,8 +70,7 @@ public class LogDirSVNRepository extends SVNRepository {
 	}
 
 	private SVNLogEntry getLogEntry(long revision) {
-		String filename = buildFileName(revision);
-		File file = new File(directory, filename);
+		File file = getLogEntryFile(revision);
 		try {
 			// log.warn("getting rev " + revision + " with filename " + file.getPath());
 			return new LogFile(file).getLogEntry(revision);
@@ -76,6 +80,12 @@ public class LogDirSVNRepository extends SVNRepository {
 		}
 	}
 
+	public File getLogEntryFile(long revision) {
+		String filename = buildFileName(revision);
+		File file = new File(directory, filename);
+		return file;
+	}
+
 	private String buildFileName(long revision) {
 		// return MessageFormat.format(FILENAME_FORMAT, new Object[] { new Long(revision) });
 		return FILENAME_PREFIX + revision + FILENAME_SUFFIX;
@@ -83,20 +93,44 @@ public class LogDirSVNRepository extends SVNRepository {
 
 	@Override
 	public long getLatestRevision() {
-		long rev = myRev + 1;
-		if (logFileExists(rev)) { // new files available
-			// will perform badly with large (i.e., many commits) repositories:
-			do {
-				rev++;
-			} while (logFileExists(rev));
-			myRev = rev - 1;
+//		long rev = myRev + 1;
+//		if (logFileExists(rev)) { // new files available
+//			// will perform badly with large (i.e., many commits) repositories:
+//			do {
+//				rev++;
+//			} while (logFileExists(rev));
+//			myRev = rev - 1;
+//		}
+//		log.info("latest revision is: " + myRev);
+//		return myRev;
+		Collection files = FileUtils.listFiles(directory, new WildcardFilter(FILENAME_PREFIX + "*" + FILENAME_SUFFIX), null);
+		Iterator iter = files.iterator();
+		while(iter.hasNext()) {
+			File file = (File) iter.next();
+			try {
+				long fileRev = getRevisionFromFilename(file.getName());
+				if(fileRev>myRev) {
+					myRev = fileRev;
+				}
+			} catch (Exception ignored) {
+			}
 		}
-		log.info("latest revision is: " + myRev);
 		return myRev;
 	}
 
 	private boolean logFileExists(long rev) {
-		return new File(directory, buildFileName(rev)).canRead();
+		return getLogEntryFile(rev).canRead();
+	}
+	
+	private long getRevisionFromFilename(String filename) throws Exception {
+		if(filename==null) throw new Exception("filename must not be null"); // TODO: better exception type
+		
+		if(!filename.startsWith(FILENAME_PREFIX) || !filename.endsWith(FILENAME_SUFFIX)) {
+			throw new Exception("filename does not match expected format");
+		}
+		
+		String numPart = filename.substring(FILENAME_PREFIX.length(), filename.length()-FILENAME_SUFFIX.length());
+		return Long.parseLong(numPart);
 	}
 
 	@Override

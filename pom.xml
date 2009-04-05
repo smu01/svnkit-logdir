@@ -24,14 +24,12 @@
     </developers> 
   
   <dependencies>
-    <!--
     <dependency>
       <groupId>junit</groupId>
       <artifactId>junit</artifactId>
       <version>3.8.1</version>
       <scope>test</scope>
     </dependency>
-    -->
     <dependency>
       <groupId>org.tmatesoft.svnkit</groupId>
       <artifactId>svnkit</artifactId>
@@ -49,6 +47,18 @@
       <artifactId>log4j</artifactId>
       <version>1.2.7</version>
       <scope>compile</scope>
+    </dependency>
+    <dependency>
+      <groupId>commons-lang</groupId>
+      <artifactId>commons-lang</artifactId>
+      <version>2.4</version>
+      <scope>test</scope>
+    </dependency>
+    <dependency>
+      <groupId>commons-io</groupId>
+      <artifactId>commons-io</artifactId>
+      <version>1.2</version>
+      <scope>test,compile</scope>
     </dependency>
   </dependencies>
   
