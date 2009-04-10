@@ -54,6 +54,7 @@ public class LogDirSVNRepository extends SVNRepository {
 		super(url, session);
 		this.directory = new File(url.getPath());
 		log.warn("logdir is " + directory);
+		// Is settings myRepositoryUUID really necessary?
 		File uuidFile = new File(directory, "uuid");
 		if (uuidFile.isFile() && uuidFile.canRead()) {
 			try {

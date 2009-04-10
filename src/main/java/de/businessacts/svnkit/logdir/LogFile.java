@@ -1,6 +1,8 @@
 package de.businessacts.svnkit.logdir;
 
 import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.net.MalformedURLException;
 import java.text.MessageFormat;
@@ -40,9 +42,9 @@ public class LogFile {
 	}
 
 	public SVNLogEntry getLogEntry(long rev) throws MalformedURLException, DocumentException, ParseException,
-			DatatypeConfigurationException {
+			DatatypeConfigurationException, FileNotFoundException {
 		SAXReader reader = new SAXReader(DocumentFactory.getInstance());
-		Document doc = reader.read(file);
+		Document doc = reader.read(new FileInputStream(file));
 		Node node = doc.selectSingleNode(MessageFormat.format(LOG_ENTRY_XPATH, new Object[] { new Long(rev) }));
 		if (node != null) {
 			Element logEntryElement = (Element) node;
