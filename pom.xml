@@ -57,8 +57,8 @@
     <dependency>
       <groupId>commons-io</groupId>
       <artifactId>commons-io</artifactId>
-      <version>1.2</version>
-      <scope>test,compile</scope>
+      <version>1.4</version>
+      <scope>compile</scope>
     </dependency>
   </dependencies>
   
@@ -72,6 +72,26 @@
           <target>1.5</target>
         </configuration>
       </plugin>
+	  <plugin>
+        <artifactId>maven-assembly-plugin</artifactId>
+		<configuration>
+		  <descriptors>
+            <descriptor>src/main/assembly/bin-with-dependencies.xml</descriptor>
+          </descriptors>
+          <descriptorRefs>
+            <descriptorRef>bin</descriptorRef>
+          </descriptorRefs>
+        </configuration>
+		<executions>
+          <execution>
+            <id>make-assembly</id>
+            <phase>package</phase>
+            <goals>
+              <goal>attached</goal>
+            </goals>
+          </execution>
+        </executions>
+       </plugin>
     </plugins>
   </build>
   
