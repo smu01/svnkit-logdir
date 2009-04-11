@@ -80,6 +80,7 @@
           </descriptors>
           <descriptorRefs>
             <descriptorRef>bin</descriptorRef>
+			<descriptorRef>src</descriptorRef>
           </descriptorRefs>
         </configuration>
 		<executions>

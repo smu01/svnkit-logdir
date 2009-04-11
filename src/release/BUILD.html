@@ -1,0 +1,51 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" 
+   "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en">
+<head><title>SVNKit LogDir</title></head>
+<body>
+<h1>SVNKit LogDir protocol implementation</h1>
+Version: 0.1.2
+
+<h3>Build</h3>
+
+<ol>
+<li>Get the source code from <a href="http://github.com/smu01/svnkit-logdir/">GitHub</a></li>
+<li>
+Compile the source code with Maven2: <br/><pre>mvn package</pre>
+</li> 
+</ol>
+
+<h3>Use</h3>
+
+<ol>
+<li>
+Add svnkit-1.2.x.jar and svnkit-logdir-a.b.c.jar to your project’s build path
+</li> 
+<li>
+Register the repository factory by calling <br/><pre>LogDirSVNRepositoryFactory.setup();</pre>
+</li> 
+<li>
+Use the normal SVNKit API (Subversion URLs need to have the format logdir:///path/to/logs)
+</li> 
+</ol>
+
+<h3>License</h3>
+
+<pre>
+Copyright 2009 Stephan M&uuml;ller, BusinessActs GmbH
+
+Licensed under the Apache License, Version 2.0 (the "License");
+you may not use this file except in compliance with the License.
+You may obtain a copy of the License at
+
+   http://www.apache.org/licenses/LICENSE-2.0
+
+Unless required by applicable law or agreed to in writing, software
+distributed under the License is distributed on an "AS IS" BASIS,
+WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+See the License for the specific language governing permissions and
+limitations under the License.
+</pre>
+
+</body>
+</html>
